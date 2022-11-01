@@ -8,6 +8,7 @@ const NUMBER_OF_NEWS = 100;
 
 function MainPage() {
   const [news, setNews] = useState([]);
+  const [intervalId, setIntervalId] = useState();
 
   async function getItem(id) {
     try {
@@ -37,20 +38,46 @@ function MainPage() {
     }
   }
 
-  useEffect(() => {
+  function updateNewsState() {
     getNews()
       .then((news) => {
         setNews(news);
+        console.log(news);
       })
       .catch((error) => {
         console.log("Failed to update the news state: " + error.message);
       });
+  }
+
+  function newsRefresh() {
+    updateNewsState();
+
+    setIntervalId(
+      setInterval(() => {
+        updateNewsState();
+      }, 60000)
+    );
+  }
+
+  useEffect(() => {
+    newsRefresh();
+
+    return () => clearInterval(intervalId);
   }, []);
+
+  function buttonRefresh() {
+    clearInterval(intervalId);
+
+    newsRefresh();
+  }
 
   return (
     <>
-      <Link to="/story">Story Page</Link>
+      <Link to="/story">News Page</Link>
       <div>MainPage</div>
+      <button type="button" onClick={buttonRefresh}>
+        Refresh
+      </button>
       <ul>
         {news.map((item) => {
           return <NewsItem item={item} key={item.id} />;
