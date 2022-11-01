@@ -1,9 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const NewsItem = ({ item: { title, by, score, time }}) => {
+const NewsItem = ({ item: { id, title, by, score, time } }) => {
+
   return (
     <div className="item">
-      <h2 className="item__title">{title}</h2>
+      <h3 className="item__title">
+        <Link to={`/${id}`}>{title}</Link>
+      </h3>
 
       <div className="item__details">
         <span> author: {by}; </span>

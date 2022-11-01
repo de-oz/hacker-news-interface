@@ -8,6 +8,7 @@ const NUMBER_OF_NEWS = 100;
 
 function MainPage() {
   const [news, setNews] = useState([]);
+  const [isLoading, setLoading] = useState();
   const [intervalId, setIntervalId] = useState();
 
   async function getItem(id) {
@@ -39,13 +40,15 @@ function MainPage() {
   }
 
   function updateNewsState() {
+    setLoading(true);
     getNews()
       .then((news) => {
         setNews(news);
-        console.log(news);
+        setLoading(false);
       })
       .catch((error) => {
         console.log("Failed to update the news state: " + error.message);
+        setLoading(false);
       });
   }
 
@@ -73,15 +76,17 @@ function MainPage() {
 
   return (
     <>
-      <Link to="/story">News Page</Link>
-      <div>MainPage</div>
+      <h2>MainPage</h2>
       <button type="button" onClick={buttonRefresh}>
         Refresh
       </button>
       <ul>
-        {news.map((item) => {
-          return <NewsItem item={item} key={item.id} />;
-        })}
+      {isLoading ? ( <p className="loading">Loading...</p>) : (
+        news.map((item) => {
+          if (!item) return;
+          return <NewsItem item={item} key={item.id} />
+        }))
+      }
       </ul>
     </>
   );
