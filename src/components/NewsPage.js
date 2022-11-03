@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import CommentsTree from "./CommentsTree";
+import { useSelector } from "react-redux";
 import getItem from "./getItem";
 
 function NewsPage({ match }) {
-  const itemId = match.params.id;
-  const [item, setItem] = useState({});
+  const itemId = Number(match.params.id);
+  const news = useSelector((state) => state.news.newsItems);
+  const currentItem = news.find((item) => {
+    return item.id === itemId;
+  });
+  const [item, setItem] = useState(Object.assign({}, currentItem));
   const history = useHistory();
 
   function hasComments(item) {
@@ -43,8 +48,8 @@ function NewsPage({ match }) {
       <button
         type="button"
         onClick={() =>
-          getItem(itemId).then((item) => {
-            setItem(item);
+          getItem(itemId).then((updatedItem) => {
+            setItem(updatedItem);
           })
         }
       >
