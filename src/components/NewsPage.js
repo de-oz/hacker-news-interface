@@ -1,41 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import Comment from "./Comment";
+import { useHistory } from "react-router-dom";
+import CommentsTree from "./CommentsTree";
 import getItem from "./getItem";
 
 function NewsPage({ match }) {
+  const itemId = match.params.id;
   const [item, setItem] = useState({});
-  const [comments, setComments] = useState([]);
   const history = useHistory();
 
-  async function getComments(kids) {
-    try {
-      const comments = await Promise.all(kids.map(getItem));
-
-      return comments;
-    } catch (error) {
-      console.log("Failed to get the comments: " + error.message);
-    }
+  function hasComments(item) {
+    return Boolean(item.descendants);
   }
 
   useEffect(() => {
-    getItem(match.params.id)
-      .then((item) => {
-        setItem(item);
-        return item.kids;
-      })
-      .then((kids) => {
-        getComments(kids)
-          .then((comments) => {
-            setComments(comments);
-          })
-          .catch((error) => {
-            console.log("Failed to get the comments" + error.message);
-          });
-      })
-      .catch((error) => {
-        console.log("Failed to update the item state: " + error.message);
-      });
+    getItem(itemId).then((item) => {
+      setItem(item);
+    });
   }, []);
 
   return (
@@ -43,15 +23,35 @@ function NewsPage({ match }) {
       <button type="button" onClick={() => history.push("/")}>
         Back to Main Page
       </button>
-      <h1>{item.title} <a href={item.url || `https://news.ycombinator.com/item?id=${item.id}`} target="_blank" rel="noreferrer">(url)</a></h1>
+
+      <h1>
+        {item.title}
+        <a
+          href={item.url || `https://news.ycombinator.com/item?id=${item.id}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          (url)
+        </a>
+      </h1>
+
       <div>Date: {new Date(item.time * 1000).toLocaleString("ru-RU")}</div>
+
       <div>Author: {item.by}</div>
-      <div className="item__comments">Comments: {item.descendants}</div>
-      <ul>
-        {comments?.map((comment) => (
-          <Comment comment={comment} key={comment.id} />
-        ))}
-      </ul>
+
+      <h2>Comments: {item.descendants}</h2>
+      <button
+        type="button"
+        onClick={() =>
+          getItem(itemId).then((item) => {
+            setItem(item);
+          })
+        }
+      >
+        Refresh
+      </button>
+
+      {hasComments(item) && <CommentsTree commentIds={item.kids} />}
     </>
   );
 }
