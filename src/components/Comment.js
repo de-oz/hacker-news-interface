@@ -12,7 +12,7 @@ function Comment({ comment: { by, kids, text, time } }) {
   return (
     <li className="comment">
       <span>
-        by {by}; {new Date(time * 1000).toLocaleString("ru-RU")} minutes ago
+        by <span className="accent">{by}</span>; posted: {new Date(time * 1000).toLocaleString("ru-RU")}
       </span>
 
       <p dangerouslySetInnerHTML={{ __html: text }} />

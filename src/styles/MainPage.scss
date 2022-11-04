@@ -1,0 +1,22 @@
+.subheading {
+  display: inline-block;
+  padding: 2.5rem 4rem 1.5rem;
+  margin: 0 0 0 3%;
+}
+
+.refresh-btn {
+  background-color: hsl(34, 86%, 62%);
+  border: hsl(34, 67%, 51%) solid 3px;
+
+  &:hover {
+  background-color: hsl(34, 75%, 55%);
+  border: hsl(34, 80%, 50%) solid 3px;
+  box-shadow: 0 0 3px 0 #e008;
+  }
+}
+
+.loading {
+  font-weight: bolder;
+  font-size: 2rem;
+  margin: 4rem 0 0 5rem;
+}

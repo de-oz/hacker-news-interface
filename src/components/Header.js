@@ -1,8 +1,11 @@
 import React from "react";
+import "../styles/Header.scss";
 
 function Header() {
   return (
-  <h1>Hacker News Interface</h1>
+    <header className="header">
+      <h1 className="header__heading">Hacker News Interface</h1>
+    </header>
   );
 }
 

@@ -1,0 +1,31 @@
+.news-item {
+  border-radius: 5px;
+  margin: 2rem auto;
+  padding: 0rem 2.5rem 1.5rem;
+  background: linear-gradient(to right, hsl(34, 86%, 62%), #fff 40%, #eee 60%);
+
+  &:hover {
+  background: linear-gradient(to right, hsl(34, 80%, 50%), #fff 40%, #eee 60%);
+  }
+
+  &__title {
+    margin: 0;
+
+    & > * {
+    display: inline-block;
+    width: 40%;
+    color: #232323;
+    padding: 3rem 0 2rem;
+    margin: 0;
+    }
+  }
+
+  div {
+    color: #400;
+  }
+
+  .accent {
+    color: hsl(15, 100%, 45%);
+    font-weight: bolder;
+  }
+}

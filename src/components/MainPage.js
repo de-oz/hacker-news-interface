@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import { setIntervalId, stopInterval } from "../redux/refreshSlice";
 import { setNews } from "../redux/newsSlice";
-import axios from "axios";
 import NewsItem from "./NewsItem";
 import getItem from "./getItem";
+import "../styles/MainPage.scss";
 
 const NUMBER_OF_NEWS = 100;
 
@@ -64,8 +65,8 @@ function MainPage() {
 
   return (
     <>
-      <h2>MainPage</h2>
-      <button type="button" onClick={newsRefresh}>
+      <h2 className="subheading">Main Page / Latest News</h2>
+      <button className="refresh-btn" type="button" onClick={newsRefresh}>
         Refresh
       </button>
       <ul>

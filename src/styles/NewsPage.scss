@@ -1,0 +1,48 @@
+.back,
+ul button {
+  background-color: hsl(34, 86%, 62%);
+  border: hsl(34, 67%, 51%) solid 3px;
+  margin: 1.5rem 1.5rem 0;
+
+  &:hover {
+    background-color: hsl(34, 75%, 55%);
+    border: hsl(34, 80%, 50%) solid 3px;
+    box-shadow: 0 0 3px 0 #e008;
+  }
+}
+
+.App ul button {
+  font-size: 1.3rem;
+  padding: 0.5rem 0.4rem 0.2rem;
+  margin: 0 0 1rem 0;
+}
+
+.item {
+  padding: 1rem;
+  margin: 0 1rem;
+
+  div {
+    padding: 0.5rem;
+  }
+
+  & > h2 > a {
+    color: #d00;
+  }
+}
+
+.accent {
+  color: hsl(15, 100%, 45%);
+  font-weight: bolder;
+}
+
+.comment {
+  border-radius: 5px;
+  margin: 2rem auto;
+  padding: 1rem 1rem 1rem;
+  background: linear-gradient(to right, hsl(34, 86%, 62%), #fff 40%, #eee 60%);
+}
+
+.App > h3 {
+  display: inline-block;
+  margin: 0 3rem 3rem 2%;
+}
